@@ -53,6 +53,9 @@ allow gx_fpd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 # Allow read write sysfs
 allow gx_fpd sysfs:file rw_file_perms;
 
+# Allow search userfile
+allow gx_fpd mnt_user_file:dir search;
+
 #allow read/write property
 set_prop(gx_fpd, system_prop)
 

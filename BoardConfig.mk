@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-VENDOR_PATH := device/xiaomi/msm8937-common
+VENDOR_PATH := device/xiaomi/land
 
 # Kernel
 BOARD_KERNEL_BASE		:= 0x80000000
@@ -27,6 +27,9 @@ BOARD_KERNEL_PAGESIZE 		:=  2048
 BOARD_MKBOOTIMG_ARGS 		:= --ramdisk_offset 0x01000000 --second_offset 0x00f00000 --tags_offset 0x00000100
 TARGET_KERNEL_SOURCE 		:= kernel/xiaomi/msm8937
 TARGET_EXFAT_DRIVER		:= sdfat
+
+# kernel
+TARGET_KERNEL_CONFIG	:= land_defconfig
 
 # Architecture
 TARGET_ARCH 	    	:= arm64
@@ -115,6 +118,13 @@ BLUETOOTH_HCI_USE_MCT                       := true
 QCOM_BT_USE_SMD_TTY                         := true
 QCOM_BT_USE_BTNV := true
 
+# Camera
+USE_DEVICE_SPECIFIC_CAMERA := true
+BOARD_QTI_CAMERA_32BIT_ONLY := true
+TARGET_USES_MEDIA_EXTENSIONS := true
+TARGET_USES_QTI_CAMERA_DEVICE := true
+TARGET_TS_MAKEUP := true
+
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
@@ -166,6 +176,11 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := $(VENDOR_PATH)/framework_manifest.xml
 DEVICE_MANIFEST_FILE := $(VENDOR_PATH)/manifest.xml
 DEVICE_MATRIX_FILE   := $(VENDOR_PATH)/compatibility_matrix.xml
 
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_land
+TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
+TARGET_RECOVERY_DEVICE_MODULES := libinit_land
+
 # IPACM
 USE_DEVICE_SPECIFIC_DATA_IPA_CFG_MGR := true
 
@@ -210,7 +225,10 @@ TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 TARGET_RIL_VARIANT := caf
 
 # Recovery
-TARGET_RECOVERY_FSTAB 		 := $(VENDOR_PATH)/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/fstab.qcom
+
+# Security patch level
+Vendor_Security_Patch := 2018-12-11
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
@@ -229,4 +247,4 @@ WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit the common proprietary files
--include vendor/xiaomi/msm8937-common/BoardConfigVendor.mk
+-include vendor/xiaomi/land/BoardConfigVendor.mk
